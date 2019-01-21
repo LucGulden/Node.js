@@ -27,7 +27,8 @@ serveur.get('/', function(req, res) {
     	if(!!error) {
     		console.log("Problème");
     	} else {
-    		console.log(rows);
+            console.log(rows[0].username);
+            res.send('Salut ' + rows[0].username);
     	}
     });
 });
