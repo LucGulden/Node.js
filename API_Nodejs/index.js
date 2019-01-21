@@ -6,9 +6,9 @@ var express = require('express');
 var hostname = 'localhost';
 var port = 3000;
 
-//On créé un objet de type Express.
-app = express();
-
+//Instantiation du serveur
+var app = express();
+ 
 
 //C'est à partir de cet objet monRouteur, que l'on va implémenter les méthodes
 var monRouteur = express.Router();
@@ -46,5 +46,5 @@ app.use(monRouteur);
 
 // On démarre le serveur
 app.listen(port, hostname, function(){
-    console.log("Le serveur fonction sur http://" + hostname + ":" + port + "\n");
+    console.log("Le serveur fonction sur http://" + hostname + ":" + port + "\n" + "Test 2");
 });
