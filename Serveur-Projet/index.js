@@ -11,7 +11,8 @@ var connexion = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'wswebservice'
+    database: 'ws_webservices',
+    port: 3308
 });
 
 // Connexion à la BDD
