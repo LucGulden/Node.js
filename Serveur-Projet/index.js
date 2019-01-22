@@ -1,12 +1,12 @@
 // Imports
-var express = require('express');
-var mysql = require('mysql');
+const express = require('express');
+const mysql = require('mysql');
 
 // Instantiation du serveur
-var serveur = express();
+const serveur = express();
 
 // Définitions de propriété de la BDD
-var connexion = mysql.createConnection({
+const connexion = mysql.createConnection({
     // Propriétés de la BDD
     host: 'localhost',
     user: 'root',
@@ -19,22 +19,33 @@ var connexion = mysql.createConnection({
 connexion.connect(function(error) {
 
     if (error) throw error;
-    console.log("Connected!");
+    console.log("Connecté à la base de données");
 });
 
 // Configuration des routes
-serveur.get('/', function(req, res) {
-    connexion.query("SELECT * FROM users", function(error, rows, fields) {
-    	if(!!error) {
-    		console.log("Problème");
-    	} else {
-            console.log(rows[0].username);
-            res.send('Salut ' + rows[0].username);
-    	}
+serveur.get('/users/:id', function(req, res) {
+
+    // Définition des paramètre de requête
+    const usersId = req.params.id;
+    const queryString = "SELECT * FROM users WHERE id = ?";
+
+    // Env
+    connexion.query(queryString, [usersId], function(error, rows, fields) {
+        if(error) {
+            console.log("Erreur dans la requête users : " + error);
+            res.sendStatus(500);
+            throw error;
+        } else {
+            const users = rows.map(function(row) {
+                return {Nom: row.username, Email: row.user_email};
+            });
+            res.json(users);
+        }
     });
 });
 
+
+
 // Lancement du serveur
-serveur.listen(3000, function() {
-    console.log('Serveur démarré');
-});
+// localhost:3000
+serveur.listen(3000);
