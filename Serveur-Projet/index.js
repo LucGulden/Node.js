@@ -19,7 +19,7 @@ const connexion = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'ws_webservices',
+    database: 'projet_web_local',
     port: 3308
 });
 
@@ -32,56 +32,58 @@ connexion.connect(function(error) {
 
 // Configuration des routes
 // GET
-serveur.get('/users/:id', function(req, res) {
+serveur.get('/boite-a-idees', function(req, res) {
 
     // Définition des paramètre de requête
-    const usersId = req.params.id;
-    const queryString = "SELECT * FROM users WHERE id = ?";
+    //const ideeId = req.body.idee_id;
+    const queryString = "SELECT * FROM idee";
 
-    // Envoie de la requête et affichage des données
-    connexion.query(queryString, [usersId], function(error, rows, fields) {
-        if(error) {
-            console.log("Erreur dans la requête users : " + error);
-            res.sendStatus(500);
-            throw error;
-        } else {
-            res.json(rows);
-        }
-    });
-});
+    // Execution de la requête et envoie des données
+    connexionn.query({
+        sql: queryString,
+        timeout: 40000
+        //values: []
+        }, function(error, rows, fields) {
+            if(error) {
+                console.log("Impossible d'accéder aux idées : " + error);
+                res.sendStatus(500);
+                throw error;
+            } else {
+                console.log("Succès de la requête GET");
+                res.json(rows);
+                console.log(rows);
+            }
+        });
 
-serveur.get('/users', function(req, res) {
-    const queryString = "SELECT * FROM users";
-
-    connexion.query(queryString, function(error, rows, fields) {
-        if(error) {
-            res.sendStatus(500);
-            throw error;
-        } else {
-            res.json(rows);
-        }
-    });
+    
 });
 
 //POST
-serveur.post('/user_create', (req, res) => {
-    console.log("Tentative de création d'un nouvel utilisateur...");
+serveur.post('/proposition-idee', (req, res) => {
+    console.log("Tentative de création d'une nouvelle idée...");
 
-    const nom = req.body.creation_nom;
-    const email = req.body.creation_email;
-    const role = req.body.creation_role;
-    const statut = req.body.creation_statut;
+    const titre = req.body.idee_titre;
+    const description = req.body.idee_description;
+    const id_user = req.body.id_user;
+    
 
     const queryString = "INSERT INTO users (username, user_email, user_role, user_status) VALUES (?, ?, ?, ?)"; 
-    connexion.query(queryString, [nom, email, role, statut], (error, results, fields) => {
-        if(error) {
-            console.log("Impossible de créer un nouvel utilisateur : " + error);
-            res.sendStatus(500);
-        }
 
-        console.log("Création d'un nouvel utilisateur avec l'id : ", results.insertId);
-        res.end();
-    });
+    connexionn.query({
+        sql: queryString,
+        timeout: 40000
+        //values: []
+        }, function(error, rows, fields) {
+            if(error) {
+                console.log("Impossible d'accéder aux idées : " + error);
+                res.sendStatus(500);
+                throw error;
+            } else {
+                console.log("Succès de la requête GET");
+                res.json(rows);
+                console.log(rows);
+            }
+        });
 });
 
 
