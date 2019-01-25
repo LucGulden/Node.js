@@ -96,13 +96,52 @@ serveur.post('/', (req, res) => {
                 res.sendStatus(500);
                 throw error;
             } else {
-                console.log("Succès de la requête GET");
-                res.json(rows);
+                console.log("Succès de la requête POST");
                 console.log(rows);
             }
         });
 });
 
+serveur.post('/aime', (req, res) => {
+    console.log("Aime une idée...");
+
+    const pouvoirAimer = "SELECT * FROM aime WHERE id_idee = ? AND id_users = ?";
+    const aimer = "INSERT INTO aime (id_idee, id_users) VALUES (?, ?)"
+
+    connexion.query({
+        sql: pouvoirAimer,
+        timeout: 40000,
+        values: [req.body.id_idee, req.body.id_users]
+        }, function(error, rows, fields) {
+            if(error) {
+                console.log("Impossible d'accéder aux likes : " + error);
+                res.sendStatus(500);
+                throw error;
+            } else {
+                console.log(rows);
+                if(rows[0] == null) {
+                    // Ajout du like dans la base de données
+                    connexion.query({
+                        sql: aimer,
+                        timeout : 40000,
+                        values: [req.body.id_idee, req.body.id_users]
+                    }, function (err, row, field) {
+                        if (err) {
+                            console.log("Impossible d'ajouter un like : " + error);
+                            res.sendStatus(500);
+                            throw error;
+                        } else {
+                            console.log("Like ajouté");
+                        }
+                    });
+                    // Fin de l'ajout du like dans la base de données
+                } else {
+                    console.log("Impossible d'aimer");
+                }
+            }
+            res.end();
+        });
+});
 
 // Lancement du serveur
 // localhost:3000
