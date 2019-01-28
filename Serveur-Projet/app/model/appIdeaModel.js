@@ -1,4 +1,4 @@
-const sql = require('./database.js');
+const sql = require('../../Config/databaseLocal.js');
 
 // Idea object constructor
 var Idea = function (idea) {

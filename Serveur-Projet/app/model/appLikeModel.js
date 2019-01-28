@@ -1,4 +1,4 @@
-const sql = require('./database.js');
+const sql = require('../../Config/databaseLocal.js');
 
 var Like = function(like) {
     this.id_idee = like.id_idee;

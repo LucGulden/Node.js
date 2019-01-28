@@ -1,6 +1,7 @@
 module.exports = function(app) {
     var ideaController = require('../controller/appIdeaController');
     var likeController = require('../controller/appLikeController');
+    var userController = require('../controller/appUsersController');
   
     // todoList Routes
     app.route('/idee')
@@ -17,4 +18,7 @@ module.exports = function(app) {
 
     app.route('/aime/:ideeId')
         .get(likeController.get_a_like);
+
+    app.route('/users/login/')
+        .post(userController.login);
 };

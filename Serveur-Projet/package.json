@@ -15,10 +15,12 @@
   "author": "Dylan Lafarge",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0",
     "morgan": "^1.9.1",
     "mysql": "^2.16.0",
-    "sequelize": "^3.30.4"
+    "sequelize": "^4.42.0"
   }
 }
