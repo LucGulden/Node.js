@@ -1,5 +1,7 @@
+// Imports
 const sql = require('../../Config/databaseUser');
 
+// User object
 var User = function(user) {
     this.nom_users = user.nom_users;
     this.prenom_users = user.prenom_users;
@@ -9,6 +11,7 @@ var User = function(user) {
     this.id_centre = user.id_centre;
 };
 
+// searchUser function
 User.searchUser = function(mail, result) {
     const queryString = "SELECT * FROM users WHERE mail_user = ?"; 
 
@@ -27,4 +30,5 @@ User.searchUser = function(mail, result) {
     });     
 }
 
+// Exports
 module.exports = User;

@@ -1,5 +1,7 @@
+// Imports
 var Idea = require('../model/appIdeaModel.js');
 
+// List all ideas
 exports.list_all_ideas = function(req, res) {
   Idea.getAllIdea(function(err, result) {
     if (err)
@@ -9,7 +11,7 @@ exports.list_all_ideas = function(req, res) {
 };
 
 
-
+// Create an idea
 exports.create_an_idea = function(req, res) {
   var new_idea = new Idea(req.body);
 
@@ -30,7 +32,7 @@ else{
 }
 };
 
-
+// Get an idea by id
 exports.read_an_idea = function(req, res) {
   Idea.getIdeaById(req.params.ideeId, function(err, idea) {
     if (err)
@@ -39,7 +41,7 @@ exports.read_an_idea = function(req, res) {
   });
 };
 
-
+// Update an idea
 exports.update_an_idea = function(req, res) {
   Idea.updateById(req.params.ideeId, new Idea(req.body), function(err, idea) {
     if (err)
@@ -48,7 +50,7 @@ exports.update_an_idea = function(req, res) {
   });
 };
 
-
+// Delete an idea
 exports.delete_an_idea = function(req, res) {
 
 

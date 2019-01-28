@@ -1,8 +1,9 @@
+// Imports
 var bcrypt = require('bcryptjs');
 var jwtUtils = require('../../utils/jwt.utils');
 var User = require('../model/appUserModel');
 
-// Routes
+// Controller functions
 exports.login = function(req, res) {
     var mail_user = req.body.mail_user;
     var mdp_user = req.body.mdp_user;
@@ -29,9 +30,6 @@ exports.login = function(req, res) {
                     return res.status(404).json({ 'error': 'user not exist in DataBase' });
                 }
             }
-            
         });
     }
-
-    
 }
