@@ -35,7 +35,7 @@ exports.set_a_like = function(req, res) {
             });
         }
     } else {
-        return res.status(400).json({ 'error': "Vous n'avez pas les autorisations nécessaires. Connectez vous pour pouvoir poster une idée"  });
+        return res.status(400).json({ 'error': "Vous n'avez pas les autorisations nécessaires. Connectez vous pour pouvoir liker une idée"  });
     }
 };
 
