@@ -1,5 +1,6 @@
 // Imports
 var Idea = require('../model/appIdeaModel.js');
+var jwtUtils = require('../../utils/jwt.utils');
 
 // List all ideas
 exports.list_all_ideas = function(req, res) {
@@ -13,23 +14,26 @@ exports.list_all_ideas = function(req, res) {
 
 // Create an idea
 exports.create_an_idea = function(req, res) {
-  var new_idea = new Idea(req.body);
+  var headerAuth = req.headers['authorization'];
+  var userRole = jwtUtils.getUserRole(headerAuth);
 
-  //handles null error 
-   if(!new_idea.titre_idee || !new_idea.description_idee || !new_idea.id_users){
+  if (userRole == 1 || userRole == 2 || userRole == 4) {
+    var new_idea = new Idea(req.body);
 
-            res.status(400).send({ error:true, message: 'Please provide idea/description/user' });
-
-        }
-else{
-  
-  Idea.createIdea(new_idea, function(err, id) {
-    
-    if (err)
-      res.send(err);
-    res.json(id);
-  });
-}
+    //handles null error 
+    if(!new_idea.titre_idee || !new_idea.description_idee || !new_idea.id_users){
+      res.status(400).send({ error:true, message: 'Please provide idea/description/user' });  
+    }
+    else{
+      Idea.createIdea(new_idea, function(err, id) {
+        if (err)
+          res.send(err);
+        res.json(id);
+      });
+    }
+  } else {
+    return res.status(400).json({ 'error': "Vous n'avez pas les autorisations nécessaires. Connectez vous pour pouvoir poster une idée"  });
+  }
 };
 
 // Get an idea by id

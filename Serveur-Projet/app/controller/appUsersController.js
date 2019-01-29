@@ -19,8 +19,8 @@ exports.login = function(req, res) {
                     bcrypt.compare(mdp_user, result[0].mdp_user, function(errBycrypt, resBycrypt) {
                         if(resBycrypt) {
                             return res.status(200).json({
-                                    'id_users': result[0].id_users,
-                                    'token': jwtUtils.generateTokenForUser(result[0])
+                                'id_users': result[0].id_users,
+                                'token': jwtUtils.generateTokenForUser(result[0])
                             });
                         } else {
                             return res.status(403).json({ 'error': 'invalid password' });
