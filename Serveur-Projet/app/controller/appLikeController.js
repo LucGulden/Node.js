@@ -1,6 +1,8 @@
+// Import
 var Like = require('../model/appLikeModel.js');
 var jwtUtils = require('../../utils/jwt.utils');
 
+// Function to set a like
 exports.set_a_like = function(req, res) {
     var headerAuth = req.headers['authorization'];
     var userRole = jwtUtils.getUserRole(headerAuth);
@@ -39,6 +41,7 @@ exports.set_a_like = function(req, res) {
     }
 };
 
+// Function to get a like
 exports.get_a_like = function(req, res) {
     Like.getLikeById(req.params.ideeId, function(err, result) {
         if (err)

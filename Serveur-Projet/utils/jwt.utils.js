@@ -18,10 +18,12 @@ module.exports = {
         });
     },
 
+    // Function to parse the token
     parseAuthorization: function(authorization) {
-        return (authorization != null) ? authorization.replace('Bearer ', '') : null;
+        return (authorization != null) ? authorization.replace('siteBDE ', '') : null;
     },
 
+    // Function to get user role by token
     getUserRole: function(authorization) {
         var userRole = -1;
         var token = module.exports.parseAuthorization(authorization);

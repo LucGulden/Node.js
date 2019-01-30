@@ -1,3 +1,4 @@
+// Imports
 const sql = require('../../Config/databaseLocal.js');
 
 // Idea object constructor
@@ -7,6 +8,7 @@ var Idea = function (idea) {
     this.id_users = idea.id_users;
 };
 
+// Function to create an Idea in database
 Idea.createIdea = function (newIdea, result) {
 
     const queryString = "INSERT INTO idee SET ?"; 
@@ -26,6 +28,7 @@ Idea.createIdea = function (newIdea, result) {
         });       
 };
 
+// Fonction to get an idea
 Idea.getIdeaById = function (ideaId, result) {
     // Définition des paramètre de requête
     const queryString = "SELECT * FROM idee WHERE id_idee = ?";
@@ -48,6 +51,7 @@ Idea.getIdeaById = function (ideaId, result) {
         });   
 };
 
+//Function to get all ideas in database
 Idea.getAllIdea = function (result) {
 
     // Définition des paramètre de requête

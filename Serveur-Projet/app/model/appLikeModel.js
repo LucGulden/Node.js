@@ -1,10 +1,13 @@
+// Imports
 const sql = require('../../Config/databaseLocal.js');
 
+// Like constructor
 var Like = function(like) {
     this.id_idee = like.id_idee;
     this.id_users = like.id_users;
 };
 
+// Function to create a like
 Like.setLike = function (newLike, result) {
 
     const queryString = "INSERT INTO aime SET ?"; 
@@ -24,6 +27,7 @@ Like.setLike = function (newLike, result) {
         });       
 };
 
+// Function to verify if user already liked
 Like.checkLike = function (idea, user, result) {
     const queryString = "SELECT * FROM aime WHERE id_idee = ? AND id_users = ?"; 
 
@@ -64,5 +68,5 @@ Like.getLikeById = function(ideaId, result) {
         });
 };
 
-
+// Exports
 module.exports = Like;

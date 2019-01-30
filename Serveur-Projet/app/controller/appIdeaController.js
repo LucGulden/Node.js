@@ -12,7 +12,7 @@ exports.list_all_ideas = function(req, res) {
 };
 
 
-// Create an idea
+// Create an idea in database
 exports.create_an_idea = function(req, res) {
   var headerAuth = req.headers['authorization'];
   var userRole = jwtUtils.getUserRole(headerAuth);
